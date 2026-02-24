@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+struct Item {
+    int weight, value;
+    float ratio;
+};
+
+void sortByRatio(struct Item it[], int n) {
+    for(int i=0;i<n-1;i++)
+        for(int j=i+1;j<n;j++)
+            if(it[i].ratio < it[j].ratio) {
+                struct Item t = it[i];
+                it[i] = it[j];
+                it[j] = t;
+            }
+}
+
+int main() {
+    struct Item it[] = {
+        {10,60,0}, {20,100,0}, {30,120,0}
+    };
+    int n = 3;
+    int capacity = 50;
+
+    for(int i=0;i<n;i++)
+        it[i].ratio = (float)it[i].value / it[i].weight;
+
+    sortByRatio(it, n);
+
+    float total = 0;
+
+    for(int i=0;i<n;i++) {
+        if(capacity >= it[i].weight) {
+            capacity -= it[i].weight;
+            total += it[i].value;
+        } else {
+            total += it[i].ratio * capacity;
+            break;
+        }
+    }
+
+    printf("Maximum Value = %.2f", total);
+}

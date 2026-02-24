@@ -1,0 +1,76 @@
+import java.util.Arrays;
+
+public class SearchOperations {
+
+    static int linearSearchIterative(int arr[], int key) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == key)
+                return i;
+        }
+        return -1;
+    }
+
+    static int linearSearchRecursive(int arr[], int key, int index) {
+        if (index >= arr.length)
+            return -1;
+
+        if (arr[index] == key)
+            return index;
+
+        return linearSearchRecursive(arr, key, index + 1);
+    }
+
+    static int binarySearchIterative(int arr[], int key) {
+        int low = 0, high = arr.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (arr[mid] == key)
+                return mid;
+            else if (arr[mid] < key)
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+        return -1;
+    }
+
+    static int binarySearchRecursive(int arr[], int low, int high, int key) {
+
+        if (low > high)
+            return -1;
+
+        int mid = (low + high) / 2;
+
+        if (arr[mid] == key)
+            return mid;
+        else if (arr[mid] < key)
+            return binarySearchRecursive(arr, mid + 1, high, key);
+        else
+            return binarySearchRecursive(arr, low, mid - 1, key);
+    }
+
+    public static void main(String[] args) {
+
+        int arr[] = {10, 5, 30, 15, 25};
+        int key = 15;
+
+        System.out.println("Original Array: " + Arrays.toString(arr));
+
+        System.out.println("Linear Search (Iterative): Index = "
+                + linearSearchIterative(arr, key));
+
+        System.out.println("Linear Search (Recursive): Index = "
+                + linearSearchRecursive(arr, key, 0));
+
+        Arrays.sort(arr);
+        System.out.println("Sorted Array: " + Arrays.toString(arr));
+
+        System.out.println("Binary Search (Iterative): Index = "
+                + binarySearchIterative(arr, key));
+
+        System.out.println("Binary Search (Recursive): Index = "
+                + binarySearchRecursive(arr, 0, arr.length - 1, key));
+    }
+}

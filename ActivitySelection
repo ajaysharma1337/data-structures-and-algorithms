@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+struct Activity {
+    int start, finish;
+};
+
+void sortByFinish(struct Activity a[], int n) {
+    for(int i=0;i<n-1;i++)
+        for(int j=i+1;j<n;j++)
+            if(a[i].finish > a[j].finish) {
+                struct Activity t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+}
+
+int main() {
+    struct Activity a[] = {
+        {1,3},{2,4},{3,5},{0,6},{5,7},{8,9}
+    };
+    int n = 6;
+
+    sortByFinish(a, n);
+
+    printf("Selected Activities:\n");
+    int lastFinish = -1;
+
+    for(int i=0;i<n;i++) {
+        if(a[i].start >= lastFinish) {
+            printf("(%d,%d)\n", a[i].start, a[i].finish);
+            lastFinish = a[i].finish;
+        }
+    }
+}
