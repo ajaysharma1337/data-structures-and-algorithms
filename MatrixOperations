@@ -1,0 +1,52 @@
+#include <stdio.h>
+
+int main() {
+    int a[9][9], i, j, key, found = 0, sum = 0;
+
+    printf("Enter 9x9 matrix:\n");
+    for(i=0;i<9;i++)
+        for(j=0;j<9;j++)
+            scanf("%d",&a[i][j]);
+
+    printf("\nTraversal:\n");
+    for(i=0;i<9;i++){
+        for(j=0;j<9;j++){
+            printf("%d ",a[i][j]);
+            sum += a[i][j];
+        }
+        printf("\n");
+    }
+
+    printf("\nSum = %d\n",sum);
+
+    printf("Enter element to search: ");
+    scanf("%d",&key);
+
+    for(i=0;i<9;i++)
+        for(j=0;j<9;j++)
+            if(a[i][j]==key){
+                printf("Found at position (%d,%d)\n",i,j);
+                found=1;
+            }
+
+    if(!found)
+        printf("Not Found\n");
+
+    int r,c,val;
+    printf("Enter row col and value to insert: ");
+    scanf("%d%d%d",&r,&c,&val);
+    a[r][c]=val;
+
+    printf("Enter row col to delete: ");
+    scanf("%d%d",&r,&c);
+    a[r][c]=0;
+
+    printf("\nUpdated Matrix:\n");
+    for(i=0;i<9;i++){
+        for(j=0;j<9;j++)
+            printf("%d ",a[i][j]);
+        printf("\n");
+    }
+
+    return 0;
+}
